@@ -654,6 +654,7 @@ set(SYSTEM_TESTS
     copy-remote-bscan
     deprecation
     messages
+    multiple-scratch-pools
     multiplied-device
     reload-add-client
     reload-add-duplicate-job
