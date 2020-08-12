@@ -32,11 +32,11 @@ start_test
 cat <<END_OF_DATA >$tmp/bconcmds
 @$out /dev/null
 messages
-@$out $tmp/log1.out
 setdebug level=100 storage=File
 @#
 @# full to Pool1
 @#
+@$out $tmp/log1.out
 run job=$JobName pool=Pool1  level=Full yes
 status director
 status client
@@ -46,6 +46,7 @@ messages
 @#
 @# full to Pool2
 @#
+@$out $tmp/log2.out
 run job=$JobName pool=Pool2  level=Full yes
 status director
 status client
@@ -56,6 +57,7 @@ messages
 @#
 @# full to Pool1
 @#
+@$out $tmp/log3.out
 run job=$JobName pool=Pool1  level=Full yes
 status director
 status client
@@ -65,7 +67,7 @@ messages
 @#
 @# full to Pool2
 @#
-
+@$out $tmp/log4.out
 run job=$JobName pool=Pool2  level=Full yes
 status director
 status client
@@ -82,5 +84,10 @@ check_for_zombie_jobs storage=File
 stop_bareos
 
 check_two_logs
-check_restore_diff ${BackupDirectory}
+grep "New Pool is: Scratch1"  "$tmp/log3.out" >/dev/null
+grep "New Pool is: Scratch2"  "$tmp/log4.out" >/dev/null
+
+grep 'Using Volume \"Pool1.*\" from "Scratch1" pool.' "$tmp/log3.out" >/dev/null
+grep 'Using Volume \"Pool2.*\" from "Scratch2" pool.' "$tmp/log4.out" >/dev/null
+
 end_test

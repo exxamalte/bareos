@@ -3,7 +3,7 @@
 
    Copyright (C) 2001-2012 Free Software Foundation Europe e.V.
    Copyright (C) 2011-2016 Planets Communications B.V.
-   Copyright (C) 2013-2019 Bareos GmbH & Co. KG
+   Copyright (C) 2013-2020 Bareos GmbH & Co. KG
 
    This program is Free Software; you can redistribute it and/or
    modify it under the terms of version three of the GNU Affero General Public
@@ -525,8 +525,8 @@ bool GetScratchVolume(JobControlRecord* jcr,
         goto bail_out;
       }
 
-      Jmsg(jcr, M_INFO, 0, _("Using Volume \"%s\" from 'Scratch' pool.\n"),
-           mr->VolumeName);
+      Jmsg(jcr, M_INFO, 0, _("Using Volume \"%s\" from \"%s\" pool.\n"),
+           mr->VolumeName, spr.Name);
 
       ok = true;
     }
