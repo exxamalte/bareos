@@ -1,6 +1,6 @@
 #   BAREOS® - Backup Archiving REcovery Open Sourced
 #
-#   Copyright (C) 2017-2019 Bareos GmbH & Co. KG
+#   Copyright (C) 2017-2020 Bareos GmbH & Co. KG
 #
 #   This program is Free Software; you can redistribute it and/or
 #   modify it under the terms of version three of the GNU Affero General Public
@@ -72,6 +72,7 @@ endif()
 if(${HAVE_CEPH_RADOS})
    add_library(rados-fd MODULE rados-fd.cc)
    set_target_properties(rados-fd PROPERTIES PREFIX "")
+   target_link_libraries(rados-fd ${RADOS_LIBRARIES})
    INSTALL(TARGETS rados-fd DESTINATION ${plugindir} COMPONENT filedaemon)
 endif()
 
